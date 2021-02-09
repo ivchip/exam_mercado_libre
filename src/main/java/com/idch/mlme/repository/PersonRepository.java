@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Long> {
     Optional<Person> findByDna(String dna);
+
     Long countByMutant(Boolean value);
 }
