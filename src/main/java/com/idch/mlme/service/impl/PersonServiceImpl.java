@@ -7,17 +7,35 @@ import com.idch.mlme.repository.PersonRepository;
 import com.idch.mlme.service.PersonService;
 import com.idch.mlme.utils.DnaUtils;
 import com.idch.mlme.utils.StatsUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+/**
+ * Person service implementation class
+ */
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
+    /**
+     * Injecting dependencies
+     */
     private PersonRepository personRepository;
 
+    /**
+     * Constructor
+     *
+     * @param personRepository
+     */
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    /**
+     * Method implementation validate if is mutant and creating new person
+     *
+     * @return
+     */
     @Override
     public Short savePerson(DnaDTO dna) {
         if (dna.getDna() == null)
@@ -42,6 +60,11 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
+    /**
+     * Method implementation for calculate ratio
+     *
+     * @return
+     */
     @Override
     public StatisticDTO calculateRatio() {
         return StatsUtils.calculateRatio(personRepository.countByMutant(false), personRepository.countByMutant(true));

@@ -1,11 +1,16 @@
 package com.idch.mlme.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
+/**
+ * DNA data transfer object model
+ */
+@ApiModel(value = "Dna", description = "dna")
 @Data
-public class DnaDTO implements Serializable {
+public class DnaDTO {
 
+    @ApiModelProperty(value = "Dna", required = true)
     String[] dna;
 }

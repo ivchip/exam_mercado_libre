@@ -5,8 +5,18 @@ import com.idch.mlme.dto.StatisticDTO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Stats utils class
+ */
 public class StatsUtils {
 
+    /**
+     * Method implementation for calculate ratio
+     *
+     * @param numHumans
+     * @param numMutants
+     * @return
+     */
     public static StatisticDTO calculateRatio(Long numHumans, Long numMutants) {
         StatisticDTO statisticDTO;
         if (numHumans != 0) {

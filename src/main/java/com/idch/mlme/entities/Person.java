@@ -5,10 +5,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Person model class
+ */
 @Entity
 @Data
 @NoArgsConstructor
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

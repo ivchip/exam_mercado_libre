@@ -35,7 +35,8 @@
    docker ps
    ```
 
-6. **Conectarse a MySQL por consola o MySQL Workbench, las credenciales estan en el archivo docker-compose.yml**   
+6. **Conectarse a MySQL por consola o MySQL Workbench, las credenciales estan en el archivo docker-compose.yml y 
+   ejecutar script**   
    ```bash
    CREATE DATABASE IF NOT EXISTS db_mutant DEFAULT CHARACTER SET utf8;
    USE db_mutant;
@@ -60,7 +61,7 @@
    cd exam_mercado_libre
    ```
 
-2. **Conectarse a MySQL por consola o MySQL Workbench**
+2. **Conectarse a MySQL por consola o MySQL Workbench y ejecutar script**
    ```bash
    CREATE DATABASE IF NOT EXISTS db_mutant DEFAULT CHARACTER SET utf8;
    USE db_mutant;
