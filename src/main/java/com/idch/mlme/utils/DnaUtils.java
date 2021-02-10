@@ -6,7 +6,6 @@ package com.idch.mlme.utils;
 public class DnaUtils {
 
     private static final int CONCURRENCES = 4;
-    private static String[][] matrix;
 
     /**
      * Method implementation for minimum length matrix
@@ -15,7 +14,7 @@ public class DnaUtils {
      * @return
      */
     public static boolean isMinlengthMatrix(int rowLength) {
-        return rowLength < CONCURRENCES;
+        return rowLength > CONCURRENCES;
     }
 
     /**
@@ -24,12 +23,10 @@ public class DnaUtils {
      * @param vector
      * @return boolean
      */
-    public static boolean isValidateSquareMatrixAndValues(String[] vector) {
+    public static boolean isValidMatrix(String[] vector) {
         int length = vector.length;
         for (String s : vector) {
-            if (s.length() != length)
-                return false;
-            if (isValidateRegxChars(s))
+            if (s.length() != length || isValidateRegrowChars(s))
                 return false;
         }
         return true;
@@ -41,10 +38,8 @@ public class DnaUtils {
      * @param vector
      * @return boolean
      */
-    public static boolean isMutant(String[] vector) {
+    public static boolean isMutant(final String[] vector) {
         int length = vector.length;
-        matrix = new String[length][length];
-        createMatrix(vector);
         int found = 0;
         int size = length - CONCURRENCES;
         for (int row = 0; row < length; row++) {
@@ -52,19 +47,19 @@ public class DnaUtils {
                 if (found > 1)
                     break;
                 if (size >= column) {
-                    if (isRightHorizontal(row, column))
+                    if (isRightHorizontal(vector, row, column))
                         found++;
                 }
                 if (size >= column && size >= row) {
-                    if (isDownRightDiagonal(row, column))
+                    if (isDownRightDiagonal(vector, row, column))
                         found++;
                 }
                 if (size >= row) {
-                    if (isDownVertical(row, column))
+                    if (isDownVertical(vector, row, column))
                         found++;
                 }
                 if (length - size <= column + 1 && size >= row) {
-                    if (isDownLeftDiagonal(row, column))
+                    if (isDownLeftDiagonal(vector, row, column))
                         found++;
                 }
             }
@@ -75,49 +70,53 @@ public class DnaUtils {
     /**
      * Helper method for validate concurrences in right horizontal
      *
-     * @param x
-     * @param y
+     * @param vector
+     * @param row
+     * @param column
      * @return
      */
-    private static boolean isRightHorizontal(int x, int y) {
-        return matrix[x][y].equals(matrix[x][y + 1]) && matrix[x][y].equals(matrix[x][y + 2])
-                && matrix[x][y].equals(matrix[x][y + 3]);
+    private static boolean isRightHorizontal(final String[] vector, int row, int column) {
+        return vector[row].charAt(column) == vector[row].charAt(column + 1) && vector[row].charAt(column) == vector[row].charAt(column + 2)
+                && vector[row].charAt(column) == vector[row].charAt(column + 3);
     }
 
     /**
      * Helper method for validate concurrences in down right diagonal
      *
-     * @param x
-     * @param y
+     * @param vector
+     * @param row
+     * @param column
      * @return
      */
-    private static boolean isDownRightDiagonal(int x, int y) {
-        return matrix[x][y].equals(matrix[x + 1][y + 1]) && matrix[x][y].equals(matrix[x + 2][y + 2])
-                && matrix[x][y].equals(matrix[x + 3][y + 3]);
+    private static boolean isDownRightDiagonal(final String[] vector, int row, int column) {
+        return vector[row].charAt(column) == vector[row + 1].charAt(column + 1) && vector[row].charAt(column) == vector[row + 2].charAt(column + 2)
+                && vector[row].charAt(column) == vector[row + 3].charAt(column + 3);
     }
 
     /**
      * Helper method for validate concurrences in down vertical
      *
-     * @param x
-     * @param y
+     * @param vector
+     * @param row
+     * @param column
      * @return
      */
-    private static boolean isDownVertical(int x, int y) {
-        return matrix[x][y].equals(matrix[x + 1][y]) && matrix[x][y].equals(matrix[x + 2][y])
-                && matrix[x][y].equals(matrix[x + 3][y]);
+    private static boolean isDownVertical(final String[] vector, int row, int column) {
+        return vector[row].charAt(column) == vector[row + 1].charAt(column) && vector[row].charAt(column) == vector[row + 2].charAt(column)
+                && vector[row].charAt(column) == vector[row + 3].charAt(column);
     }
 
     /**
      * Helper method for validate concurrences in down left diagonal
      *
-     * @param x
-     * @param y
+     * @param vector
+     * @param row
+     * @param column
      * @return
      */
-    private static boolean isDownLeftDiagonal(int x, int y) {
-        return matrix[x][y].equals(matrix[x + 1][y - 1]) && matrix[x][y].equals(matrix[x + 2][y - 2])
-                && matrix[x][y].equals(matrix[x + 3][y - 3]);
+    private static boolean isDownLeftDiagonal(final String[] vector, int row, int column) {
+        return vector[row].charAt(column) == vector[row + 1].charAt(column - 1) && vector[row].charAt(column) == vector[row + 2].charAt(column - 2)
+                && vector[row].charAt(column) == vector[row + 3].charAt(column - 3);
     }
 
     /**
@@ -126,32 +125,8 @@ public class DnaUtils {
      * @param s
      * @return
      */
-    private static boolean isValidateRegxChars(String s) {
+    private static boolean isValidateRegrowChars(String s) {
         return !s.matches("[ACGT]+");
     }
 
-    /**
-     * Helper method for creating matrix
-     *
-     * @param vector
-     */
-    private static void createMatrix(final String[] vector) {
-        int i = 0;
-        for (String s : vector) {
-            createVectorToMatrix(i, s);
-            i++;
-        }
-    }
-
-    /**
-     * Helper method for write in matrix
-     *
-     * @param row
-     * @param value
-     */
-    private static void createVectorToMatrix(int row, final String value) {
-        for (int i = 0; i < value.length(); i++) {
-            matrix[row][i] = String.valueOf(value.charAt(i));
-        }
-    }
 }

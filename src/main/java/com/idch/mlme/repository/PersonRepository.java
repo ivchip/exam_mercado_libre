@@ -2,9 +2,11 @@ package com.idch.mlme.repository;
 
 import com.idch.mlme.entities.Person;
 import io.swagger.annotations.Api;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,8 +27,8 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     /**
      * Getting value based on the provided is mutant
      *
-     * @param isMutant
      * @return
      */
-    Long countByMutant(Boolean isMutant);
+    @Query("SELECT p.mutant, COUNT(p.mutant) FROM Person AS p GROUP BY p.mutant")
+    List<Object[]> groupByAndCountByMutant();
 }

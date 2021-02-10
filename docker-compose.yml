@@ -4,6 +4,7 @@ services:
   db:
     image: mysql:5.7
     volumes:
+      - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"

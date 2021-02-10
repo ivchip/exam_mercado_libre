@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * DNA data transfer object model
  */
@@ -12,5 +14,6 @@ import lombok.Data;
 public class DnaDTO {
 
     @ApiModelProperty(value = "Dna", required = true)
+    @NotNull
     String[] dna;
 }
