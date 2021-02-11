@@ -107,6 +107,40 @@ public class DnaUtilsTest {
     }
 
     @Test
+    public void validateRightHorizontalSearchNextTo() {
+        String[] dna = new String[6];
+        dna[0] = "AAAAAT";
+        dna[1] = "CTAGTG";
+        dna[2] = "CCGCGT";
+        dna[3] = "AACTCG";
+        dna[4] = "CGCTAC";
+        dna[5] = "AACTCT";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, false);
+    }
+
+    @Test
+    public void validateRightHorizontalSearchNextToSuccess() {
+        String[] dna = new String[8];
+        dna[0] = "ACATAGAA";
+        dna[1] = "CTAGTGCT";
+        dna[2] = "CCGCGTAC";
+        dna[3] = "AACACGAA";
+        dna[4] = "CGCTACCG";
+        dna[5] = "AACTCTGC";
+        dna[6] = "AACTCTAA";
+        dna[7] = "AAAAAAAA";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, true);
+    }
+
+    @Test
     public void validateVerticalSearch() {
         String[] dna = new String[6];
         dna[0] = "TACAAT";

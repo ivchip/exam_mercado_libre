@@ -62,7 +62,7 @@ public class PersonController {
      */
     @ApiOperation(value = "Get a ratio", notes = "", response = StatisticDTO.class)
     @GetMapping("/stats")
-    public ResponseEntity<StatisticDTO> getRatio() {
+    public ResponseEntity<StatisticDTO> getStats() {
         return ResponseEntity.status(HttpStatus.OK).body(personService.calculateRatio());
     }
 }

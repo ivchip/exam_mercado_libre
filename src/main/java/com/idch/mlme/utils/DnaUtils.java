@@ -42,13 +42,17 @@ public class DnaUtils {
         int length = vector.length;
         int found = 0;
         int size = length - CONCURRENCES;
+        int columnRightHorizontal = 0;
         for (int row = 0; row < length; row++) {
+            columnRightHorizontal = 0;
             for (int column = 0; column < length; column++) {
                 if (found > 1)
                     break;
-                if (size >= column) {
-                    if (isRightHorizontal(vector, row, column))
+                if (size >= column && columnRightHorizontal <= column) {
+                    if (isRightHorizontal(vector, row, column)) {
                         found++;
+                        columnRightHorizontal = column + CONCURRENCES;
+                    }
                 }
                 if (size >= column && size >= row) {
                     if (isDownRightDiagonal(vector, row, column))
