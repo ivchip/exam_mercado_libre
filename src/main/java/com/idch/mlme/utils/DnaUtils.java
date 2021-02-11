@@ -14,7 +14,7 @@ public class DnaUtils {
      * @return
      */
     public static boolean isMinlengthMatrix(int rowLength) {
-        return rowLength > CONCURRENCES;
+        return rowLength >= CONCURRENCES;
     }
 
     /**
@@ -26,7 +26,7 @@ public class DnaUtils {
     public static boolean isValidMatrix(String[] vector) {
         int length = vector.length;
         for (String s : vector) {
-            if (s.length() != length || isValidateRegrowChars(s))
+            if (s.length() != length || isValidateRegxRowChars(s))
                 return false;
         }
         return true;
@@ -125,7 +125,7 @@ public class DnaUtils {
      * @param s
      * @return
      */
-    private static boolean isValidateRegrowChars(String s) {
+    private static boolean isValidateRegxRowChars(String s) {
         return !s.matches("[ACGT]+");
     }
 

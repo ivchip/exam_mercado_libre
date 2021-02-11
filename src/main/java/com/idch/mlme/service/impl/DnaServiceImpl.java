@@ -63,17 +63,17 @@ public class DnaServiceImpl implements DnaService {
     @Override
     public StatisticDTO calculateRatio() {
         List<Object[]> result = personRepository.groupByAndCountByMutant();
-        Long numHuman = 0L;
-        Long numMutant = 0L;
+        Long numHumans = 0L;
+        Long numMutants = 0L;
         if (!result.isEmpty()) {
             for (Object[] l : result) {
                 if ((Boolean) l[0]) {
-                    numMutant = (Long) l[1];
+                    numMutants = (Long) l[1];
                 } else {
-                    numHuman = (Long) l[1];
+                    numHumans = (Long) l[1];
                 }
             }
         }
-        return StatsUtils.calculateRatio(numHuman, numMutant);
+        return StatsUtils.calculateRatio(numMutants, numHumans);
     }
 }

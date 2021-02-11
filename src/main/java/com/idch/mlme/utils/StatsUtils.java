@@ -17,7 +17,7 @@ public class StatsUtils {
      * @param numMutants
      * @return
      */
-    public static StatisticDTO calculateRatio(Long numHumans, Long numMutants) {
+    public static StatisticDTO calculateRatio(Long numMutants, Long numHumans) {
         StatisticDTO statisticDTO;
         if (numHumans != 0) {
             Double ratio = BigDecimal.valueOf(Double.valueOf(numMutants) / Double.valueOf(numHumans)).setScale(4, RoundingMode.HALF_UP).doubleValue();

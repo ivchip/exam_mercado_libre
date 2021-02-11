@@ -44,15 +44,7 @@
 
 2. **Conectarse a MySQL por consola o MySQL Workbench y ejecutar script**
    ```bash
-   CREATE DATABASE IF NOT EXISTS db_mutant DEFAULT CHARACTER SET utf8;
-   USE db_mutant;
-
-   CREATE TABLE IF NOT EXISTS person (
-   id BIGINT NOT NULL AUTO_INCREMENT,
-   dna VARCHAR(1000) NOT NULL,
-   mutant TINYINT NOT NULL,
-   PRIMARY KEY (id),
-   UNIQUE INDEX dna_UNIQUE (dna ASC));
+   cd .docker/setup.sql
    ```
  
 3. **Modifique el archivo application.properties para colocar sus credenciales de MySQL**
@@ -69,4 +61,20 @@
    ```bash
    http://localhost:9090/swagger-ui.html#/
    ```
+
 ## DEMO
+   ```bash
+   http://ec2-34-232-69-102.compute-1.amazonaws.com/swagger-ui.html#/
+   ```
+
+## Endpoints
+   ```bash
+   Método: POST
+   URL: http://ec2-34-232-69-102.compute-1.amazonaws.com//api/v1/mutant
+   Entrada: {"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
+   ```
+   ```bash
+   Método: GET
+   URL: http://ec2-34-232-69-102.compute-1.amazonaws.com//api/v1/stats
+   Salida: {"count_mutant_dna":50, "count_human_dna":100: "ratio":0.5}
+   ```
