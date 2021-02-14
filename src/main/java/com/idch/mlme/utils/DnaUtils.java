@@ -75,8 +75,6 @@ public class DnaUtils {
                     if (isDownLeftDiagonal(vector, row, column))
                         loadMap(row, column, 4, found, foundConcurrence);
                 }
-                foundConcurrence.forEach((k, v) -> System.out.println((k + ":" + v)));
-                System.out.println("Found -> " + found.toString());
             }
         }
         return found.get() > 1;
