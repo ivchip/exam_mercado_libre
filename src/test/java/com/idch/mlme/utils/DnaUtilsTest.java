@@ -157,6 +157,40 @@ public class DnaUtilsTest {
     }
 
     @Test
+    public void validateVerticalSearchNextTo() {
+        String[] dna = new String[6];
+        dna[0] = "AATAAT";
+        dna[1] = "CAGGTG";
+        dna[2] = "CAGCGT";
+        dna[3] = "AACTCG";
+        dna[4] = "CACTAC";
+        dna[5] = "AACTCT";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, false);
+    }
+
+    @Test
+    public void validateVerticalSearchNextToSuccess() {
+        String[] dna = new String[8];
+        dna[0] = "ACATAGAA";
+        dna[1] = "ATAGTGCT";
+        dna[2] = "ACGCGTAC";
+        dna[3] = "AACACGAA";
+        dna[4] = "AGCTACCG";
+        dna[5] = "AACTCTGC";
+        dna[6] = "AACTCTAA";
+        dna[7] = "ACAGATAA";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, true);
+    }
+
+    @Test
     public void validateDownRightDiagonalSearch() {
         String[] dna = new String[6];
         dna[0] = "TAACAT";
@@ -173,6 +207,40 @@ public class DnaUtilsTest {
     }
 
     @Test
+    public void validateDownRightDiagonalSearchNextTo() {
+        String[] dna = new String[6];
+        dna[0] = "ATTAAT";
+        dna[1] = "CATGTG";
+        dna[2] = "CGGTGT";
+        dna[3] = "TACATG";
+        dna[4] = "CGCTAT";
+        dna[5] = "AACTCT";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, false);
+    }
+
+    @Test
+    public void validateDownRightDiagonalSearchNextToSuccess() {
+        String[] dna = new String[8];
+        dna[0] = "GCATAGAA";
+        dna[1] = "AGAGTGAT";
+        dna[2] = "ACGCCTAC";
+        dna[3] = "AACGCGAA";
+        dna[4] = "AGCTGCCG";
+        dna[5] = "AACTCGGC";
+        dna[6] = "AACTCTGA";
+        dna[7] = "ACAGATAG";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, true);
+    }
+
+    @Test
     public void validateDownLeftDiagonalSearch() {
         String[] dna = new String[6];
         dna[0] = "TAAGAT";
@@ -181,6 +249,40 @@ public class DnaUtilsTest {
         dna[3] = "AACTTG";
         dna[4] = "CGCTAC";
         dna[5] = "AATTCT";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, true);
+    }
+
+    @Test
+    public void validateDownLeftDiagonalSearchNextTo() {
+        String[] dna = new String[6];
+        dna[0] = "AATAAT";
+        dna[1] = "CGGATG";
+        dna[2] = "CAACGT";
+        dna[3] = "AACTCG";
+        dna[4] = "AGCTAC";
+        dna[5] = "AACTCT";
+        DnaDTO dnaDTO = new DnaDTO();
+        dnaDTO.setDna(dna);
+
+        Boolean result = DnaUtils.isMutant(dnaDTO.getDna());
+        assertEquals(result, false);
+    }
+
+    @Test
+    public void validateDownLeftDiagonalSearchNextToSuccess() {
+        String[] dna = new String[8];
+        dna[0] = "ACATAGAT";
+        dna[1] = "ATAGTGTT";
+        dna[2] = "ACGCGTAC";
+        dna[3] = "AACATGAA";
+        dna[4] = "AGCTACCG";
+        dna[5] = "AATTCTGC";
+        dna[6] = "ATCTCTAA";
+        dna[7] = "TCAGATAA";
         DnaDTO dnaDTO = new DnaDTO();
         dnaDTO.setDna(dna);
 

@@ -1,5 +1,9 @@
 package com.idch.mlme.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Dna utils class
  */
@@ -39,36 +43,43 @@ public class DnaUtils {
      * @return boolean
      */
     public static boolean isMutant(final String[] vector) {
+        Map<String, Integer> foundConcurrence = new HashMap<>();
         int length = vector.length;
-        int found = 0;
+        AtomicInteger found = new AtomicInteger(0);
         int size = length - CONCURRENCES;
-        int columnRightHorizontal = 0;
+        int typeFind = 0;
         for (int row = 0; row < length; row++) {
-            columnRightHorizontal = 0;
             for (int column = 0; column < length; column++) {
-                if (found > 1)
+                if (found.get() > 1)
                     break;
-                if (size >= column && columnRightHorizontal <= column) {
-                    if (isRightHorizontal(vector, row, column)) {
-                        found++;
-                        columnRightHorizontal = column + CONCURRENCES;
+                if (!foundConcurrence.isEmpty()) {
+                    if (foundConcurrence.containsKey(row + "," + column)) {
+                        typeFind = foundConcurrence.get(row + "," + column);
+                    } else {
+                        typeFind = 0;
                     }
                 }
-                if (size >= column && size >= row) {
+                if (size >= column && typeFind != 1) {
+                    if (isRightHorizontal(vector, row, column))
+                        loadMap(row, column, 1, found, foundConcurrence);
+                }
+                if (size >= column && size >= row && typeFind != 2) {
                     if (isDownRightDiagonal(vector, row, column))
-                        found++;
+                        loadMap(row, column, 2, found, foundConcurrence);
                 }
-                if (size >= row) {
+                if (size >= row && typeFind != 3) {
                     if (isDownVertical(vector, row, column))
-                        found++;
+                        loadMap(row, column, 3, found, foundConcurrence);
                 }
-                if (length - size <= column + 1 && size >= row) {
+                if (length - size <= column + 1 && size >= row && typeFind != 4) {
                     if (isDownLeftDiagonal(vector, row, column))
-                        found++;
+                        loadMap(row, column, 4, found, foundConcurrence);
                 }
+                foundConcurrence.forEach((k, v) -> System.out.println((k + ":" + v)));
+                System.out.println("Found -> " + found.toString());
             }
         }
-        return found > 1;
+        return found.get() > 1;
     }
 
     /**
@@ -131,6 +142,44 @@ public class DnaUtils {
      */
     private static boolean isValidateRegxRowChars(String s) {
         return !s.matches("[ACGT]+");
+    }
+
+    /**
+     * Helper method for put Map and increment found
+     *
+     * @param row
+     * @param column
+     * @param typeFind
+     * @param found
+     * @param foundConcurrence
+     */
+    private static void loadMap(final int row, final int column, final int typeFind, AtomicInteger found, Map<String, Integer> foundConcurrence) {
+        found.set(found.get() + 1);
+        switch (typeFind) {
+            case 1 : {
+                foundConcurrence.put(row + "," + (column + 1), typeFind);
+                foundConcurrence.put(row + "," + (column + 2), typeFind);
+                foundConcurrence.put(row + "," + (column + 3), typeFind);
+                break;
+            }
+            case 2 : {
+                foundConcurrence.put((row + 1) + "," + (column + 1), typeFind);
+                foundConcurrence.put((row + 2) + "," + (column + 2), typeFind);
+                foundConcurrence.put((row + 3) + "," + (column + 3), typeFind);
+                break;
+            }
+            case 3 : {
+                foundConcurrence.put((row + 1) + "," + column, typeFind);
+                foundConcurrence.put((row + 2) + "," + column, typeFind);
+                foundConcurrence.put((row + 3) + "," + column, typeFind);
+                break;
+            }
+            case 4 : {
+                foundConcurrence.put((row + 1) + "," + (column - 1), typeFind);
+                foundConcurrence.put((row + 2) + "," + (column - 2), typeFind);
+                foundConcurrence.put((row + 3) + "," + (column - 3), typeFind);
+            }
+        }
     }
 
 }
