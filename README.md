@@ -64,17 +64,17 @@
 
 ## DEMO
    ```bash
-   http://ec2-34-232-69-102.compute-1.amazonaws.com/swagger-ui.html#/
+   http://ec2-18-222-124-107.us-east-2.compute.amazonaws.com/swagger-ui.html#/
    ```
 
 ## Endpoints
    ```bash
    Método: POST
-   URL: http://ec2-34-232-69-102.compute-1.amazonaws.com//api/v1/mutant
+   URL: http://ec2-18-222-124-107.us-east-2.compute.amazonaws.com/api/v1/mutant
    Entrada: {"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
    ```
    ```bash
    Método: GET
-   URL: http://ec2-34-232-69-102.compute-1.amazonaws.com//api/v1/stats
+   URL: http://ec2-18-222-124-107.us-east-2.compute.amazonaws.com/api/v1/stats
    Salida: {"count_mutant_dna":50, "count_human_dna":100: "ratio":0.5}
    ```
